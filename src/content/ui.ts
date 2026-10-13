@@ -19,23 +19,35 @@ export const ui = {
     eyebrow: L("Portfolio 2026", "พอร์ตโฟลิโอ 2026"),
     pre: L("Computer engineering student at Chulalongkorn University. I test software, build web apps and work with data.", "เรียนวิศวะคอมที่จุฬาฯ ชอบเทสต์ซอฟต์แวร์ ทำเว็บ แล้วก็เล่นกับข้อมูล"),
     cta1: L("See my projects", "ดูผลงาน"),
-    hint: L("Click the lamp to switch day and night · catch the bugs on the screen · scroll to zoom in", "คลิกโคมไฟเพื่อสลับกลางวัน/กลางคืน · จับบั๊กบนจอ · เลื่อนลงเพื่อซูมเข้าจอ"),
+    hint: L("Click the lamp for day or night · catch the bugs · scroll to zoom in · lo-fi music starts after your first click", "คลิกโคมไฟเพื่อสลับกลางวัน/กลางคืน · จับบั๊กบนจอ · เลื่อนลงเพื่อซูมเข้าจอ · เพลง lo-fi จะเปิดหลังคลิกครั้งแรก"),
     bugs: L("bugs caught", "จับบั๊กได้"),
     n5: L("5 bugs caught.", "5 ตัวแล้ว"),
     n15: L("15. You'd make a decent tester.", "15 ตัว ไปเป็น Tester ได้เลยนะ"),
     n30: L("30. Okay, let's talk.", "30 ตัว! คุยเรื่องงานกันไหม"),
   },
   about: {
-    title: L("Hi, I'm <em>Kwan.</em>", "สวัสดี เรียกฉันว่า <em>Kwan</em> ก็ได้"),
-    summary: L("I'm studying computer engineering at Chulalongkorn University. So far I've worked as a software tester, a business analyst trainee and a developer, and I'm looking for a role as a programmer, software tester or data analyst.", "เรียนวิศวะคอมที่จุฬาฯ เคยฝึกงานเป็น Software Tester, Business Analyst และ Developer ตอนนี้กำลังหางานสาย Programmer, Tester หรือ Data Analyst"),
-    edu: L("B.Eng. in Computer Engineering and Digital Technology (CEDT), 2024 to May 2028 (expected).", "วิศวกรรมคอมพิวเตอร์และเทคโนโลยีดิจิทัล (CEDT) จุฬาฯ เข้าเรียนปี 2024 คาดว่าจบ พ.ค. 2028"),
-    langs: L("Thai (native) · English (proficient) · Mandarin (basic)", "ไทย (ภาษาแม่) · อังกฤษ (คล่อง) · จีนกลาง (พื้นฐาน)"),
-    stats: [
-      { label: L("GPAX", "เกรดเฉลี่ยสะสม"), value: 3.75, decimals: 2, suffix: " / 4.00" },
-      { label: L("Internships", "ที่ฝึกงาน"), value: 3, decimals: 0, suffix: "" },
-      { label: L("Public repos", "Repo บน GitHub"), value: 50, decimals: 0, suffix: "+" },
-      { label: L("Languages", "ภาษา"), value: 3, decimals: 0, suffix: "" },
-    ],
+    title: L("Hi, I'm <em>Kwan.</em>", "สวัสดี เรียกว่า <em>Kwan</em> ก็ได้"),
+    summary: L(
+      "I'm studying computer engineering at Chulalongkorn University. So far I've worked as a software tester, a business analyst trainee and a developer, and I'm looking for a role as a programmer, software tester or data analyst.",
+      "เรียนวิศวะคอมที่จุฬาฯ เคยฝึกงานเป็น Software Tester, Business Analyst และ Developer ตอนนี้กำลังหางานสาย Programmer, Tester หรือ Data Analyst",
+    ),
+    // the pinned notes
+    studying: {
+      tag: L("studying", "กำลังเรียน"),
+      title: L("Chulalongkorn University", "จุฬาลงกรณ์มหาวิทยาลัย"),
+      sub: L("Computer Engineering and Digital Technology (CEDT), 2024 to May 2028 (expected)", "วิศวกรรมคอมพิวเตอร์และเทคโนโลยีดิจิทัล (CEDT) 2024 – พ.ค. 2028 (คาดว่าจบ)"),
+    },
+    gpax: { tag: L("GPAX", "เกรดเฉลี่ยสะสม"), value: 3.75, decimals: 2, suffix: " / 4.00" },
+    looking: { tag: L("looking for", "กำลังมองหา"), items: ["Programmer", "Software Tester", "Data Analyst"] },
+    languages: {
+      tag: L("languages", "ภาษา"),
+      items: [L("Thai · native", "ไทย · ภาษาแม่"), L("English · proficient", "อังกฤษ · คล่อง"), L("Mandarin · basic", "จีนกลาง · พื้นฐาน")],
+    },
+    sofar: {
+      tag: L("so far", "ที่ผ่านมา"),
+      internships: { value: 3, label: L("internships", "ที่ฝึกงาน") },
+      repos: { value: 50, label: L("public repos", "repo บน GitHub") },
+    },
   },
   exp: {
     title: L("Internships <em>and part-time work</em>", "ฝึกงาน<em>กับงานพาร์ทไทม์</em>"),
@@ -108,6 +120,10 @@ export const ui = {
     paper: L("Research paper", "งานวิจัย"),
     paperSub: L("Open in Google Drive", "เปิดใน Google Drive"),
     mail: L("Email", "อีเมล"),
+  },
+  email: {
+    gmail: L("Open in Gmail", "เปิดใน Gmail"),
+    app: L("Open mail app", "เปิดแอปอีเมล"),
   },
   contact: {
     title: L("Let's <em>talk.</em>", "<em>คุยกัน</em>ได้นะ"),

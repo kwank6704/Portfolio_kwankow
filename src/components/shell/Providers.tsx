@@ -2,6 +2,7 @@
 
 import { createContext, Fragment, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { L } from "@/content";
+import { setAmbientTheme, startAmbient } from "@/lib/ambient";
 
 export type Lang = "en" | "th";
 export type Theme = "dark" | "light";
@@ -39,6 +40,16 @@ export default function Providers({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+
+  // Sound may only start after a gesture: the first click, tap or key press turns the soundscape on.
+  useEffect(() => {
+    const go = () => { startAmbient(); setAmbientTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark"); };
+    const opts = { once: true, capture: true } as const;
+    window.addEventListener("pointerdown", go, opts);
+    window.addEventListener("keydown", go, opts);
+    return () => { window.removeEventListener("pointerdown", go, opts); window.removeEventListener("keydown", go, opts); };
+  }, []);
+  useEffect(() => { setAmbientTheme(theme); }, [theme]);
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l);

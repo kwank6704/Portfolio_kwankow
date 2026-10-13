@@ -4,7 +4,7 @@
 .nav.is-hidden:focus-within { transform: translateX(-50%); }
 .nav.is-scrolled { background: var(--bg); border-color: var(--line); }
 /* over the hero artwork the nav is always light-on-dark */
-.nav:not(.is-scrolled) { --text: #fff8ec; --muted: rgba(255, 248, 236, 0.8); --line: rgba(255, 248, 236, 0.32); --brand: #ffc27a; --on-brand: #2a1b3a; color: var(--text); }
+.nav:not(.is-scrolled) { --text: #fff8ec; --muted: rgba(255, 248, 236, 0.8); --line: rgba(255, 248, 236, 0.32); --brand: #ffb0cf; --on-brand: #2a1b3a; color: var(--text); }
 .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif), serif; font-size: 22px; line-height: 1; }
 .logo i { color: var(--brand); font-style: normal; }
 .nav nav { display: flex; gap: 2px; }

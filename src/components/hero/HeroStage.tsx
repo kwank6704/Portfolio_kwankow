@@ -13,8 +13,8 @@ interface P { x: number; y: number; hx: number; hy: number; vx: number; vy: numb
 interface Bug { x: number; y: number; a: number; s: number; t: number; dead: number }
 interface Spark { x: number; y: number; vx: number; vy: number; life: number }
 
-const PAL_NIGHT = ["#f0e9dc", "#ffd9a3", "#ffb066", "#f4a7bd"];
-const PAL_DAY = ["#2a2438", "#4b3f6a", "#c8502a", "#c9708c"];
+const PAL_NIGHT = ["#f0e9dc", "#ffc2d9", "#ff8fb8", "#ffb3cf"];
+const PAL_DAY = ["#2a2438", "#4b3f6a", "#bd2d6b", "#e07aa6"];
 
 export default function HeroStage({ labels, word = "KWAN" }: { labels: HeroLabels; word?: string }) {
   const pc = useRef<HTMLCanvasElement>(null);
@@ -157,7 +157,7 @@ export default function HeroStage({ labels, word = "KWAN" }: { labels: HeroLabel
         const s = sparks[i];
         s.x += s.vx; s.y += s.vy; s.vy += 0.12; s.life -= 0.04;
         if (s.life <= 0) { sparks.splice(i, 1); continue; }
-        bg.globalAlpha = s.life; bg.fillStyle = "#ffb066"; bg.fillRect(s.x - 1.5, s.y - 1.5, 3, 3);
+        bg.globalAlpha = s.life; bg.fillStyle = "#ff8fb8"; bg.fillRect(s.x - 1.5, s.y - 1.5, 3, 3);
       }
       bg.globalAlpha = 1;
     };
