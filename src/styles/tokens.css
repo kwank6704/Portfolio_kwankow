@@ -1,0 +1,58 @@
+/* ─────────────────────────────────────────────────────────────
+   Design notes (performance first)
+   · no backdrop-filter, no blur(), no mix-blend, no canvas
+   · animations are tiny, transform/opacity only, and pause when off-screen or hover-only
+   · the landscape is static SVG planes moved by the GPU (see .layer)
+   ───────────────────────────────────────────────────────────── */
+
+/* ───────── Tokens: "Golden hour & midnight" ─────────
+   Night = lamp on: deep indigo sky, amber accent.
+   Day   = lamp off: warm paper, plum ink, rose-and-peach sunset, terracotta accent.
+   Text contrast: ≥ 13:1 · muted ≥ 4.8:1 · brand-on-bg ≥ 4:1 (day, large text / links) / 10:1 (night). */
+:root {
+  /* night (default) */
+  --bg: #0e1128;
+  --bg2: #151a38;
+  --card: color-mix(in srgb, #151a38 78%, transparent);
+  --page-2: #161a42; --page-3: #231a52; --page-4: #34205a;
+  --line: rgba(240, 233, 220, 0.14);
+  --text: #f0e9dc;
+  --muted: #a6a3bb;
+  --brand: #ffb066;
+  --on-brand: #1a1126;
+  --accent: var(--brand);
+  --g1: #9ad9b0; --g2: #9db4ee; --g3: #ff9a8a; --g4: #ffc978; --g5: #c9a9ee; --g6: #8fd6e6;
+  --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.6);
+  --radius: 16px;
+  /* view outside the window */
+  --sky-top: #0a0d24; --sky-mid: #1f2358; --sky-low: #5a4586;
+  --sun: #f6efe0; --sun-glow: #b9b4ff;
+  --m1: #46467f; --m2: #353770; --m3: #282b5a; --m4: #1b1e45; --m5: #0e1128;
+  --mist: #8d86c9; --cloud: #8f8bc8; --bird: #cfc9f0; --stars: 1;
+  /* room */
+  --lamp-on: 1; --lamp: #ffc66b; --lamp-off: #3a3560; --lampbody: #2a2750;
+  --desk-top: #1a1733; --desk-edge: #2e2a55; --mon: #121430; --kb: #272b54; --frame: #0a0c1e;
+  --mug: #e8d9c0; --steam: #cfc9f0;
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --bg: #f6efe4;
+  --bg2: #fffaf1;
+  --card: color-mix(in srgb, #fffaf1 80%, transparent);
+  --page-2: #f8e0d4; --page-3: #efd7e2; --page-4: #dccbe8;
+  --line: rgba(42, 36, 56, 0.15);
+  --text: #2a2438;
+  --muted: #6f6678;
+  --brand: #c8502a;
+  --on-brand: #ffffff;
+  --g1: #3f7d5c; --g2: #3d5aa8; --g3: #c24a3a; --g4: #a8700a; --g5: #7a4fa8; --g6: #2a7f95;
+  --shadow: 0 18px 36px -26px rgba(42, 36, 56, 0.45);
+  --sky-top: #5c6ab5; --sky-mid: #e58ca2; --sky-low: #ffd6a0;
+  --sun: #fff3cf; --sun-glow: #fff0b8;
+  --m1: #cba2c6; --m2: #a981b4; --m3: #84709f; --m4: #565482; --m5: #2e3457;
+  --mist: #ffffff; --cloud: #ffffff; --bird: #4b3f6a; --stars: 0;
+  --lamp-on: 0; --lamp: #ffd27a; --lamp-off: #9a8a9a; --lampbody: #4a3a5a;
+  --desk-top: #8a6350; --desk-edge: #a57d66; --mon: #2b2742; --kb: #3d3658; --frame: #3a2a4a;
+  --mug: #fff3cf; --steam: #ffffff;
+  color-scheme: light;
+}

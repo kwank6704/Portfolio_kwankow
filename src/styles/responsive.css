@@ -1,0 +1,36 @@
+/* ───────── Responsive ───────── */
+@media (max-width: 1000px) {
+  .proj-grid { grid-template-columns: repeat(6, 1fr); }
+  .proj, .proj.feat { grid-column: span 6; }
+  .res-grid, .about-grid { grid-template-columns: 1fr; }
+  .ach-grid, .doc-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .nav { flex-wrap: wrap; row-gap: 6px; padding: 8px 10px; }
+  .nav nav { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .nav nav::-webkit-scrollbar { display: none; }
+  .nav nav a { white-space: nowrap; font-size: 13px; padding: 6px 11px; }
+  .hide-sm { display: none; }
+  .skill-svg { display: none; }
+  .skill-chips { display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .sec { padding: 84px 18px 20px 28px; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj, .proj.feat { grid-column: auto; }
+  .tl-item { grid-template-columns: 1fr; gap: 8px; }
+  .timeline { padding-left: 36px; }
+  .tl-node { left: -36px; }
+  .t-row { grid-template-columns: 20px 1fr 52px; }
+  .t-via { display: none; }
+  .ach-grid, .skill-chips, .doc-grid { grid-template-columns: 1fr; }
+  .lead-list li { grid-template-columns: 1fr; gap: 2px; }
+  .lead-list i { text-align: left; }
+  .sheet-scroll { padding: 22px 20px 48px; }
+  .flow:has(.flow-loop) { padding-right: 38px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  .layer { will-change: auto; }
+}
