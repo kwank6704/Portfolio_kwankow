@@ -30,8 +30,8 @@ html[lang="th"] .doc-t { font-family: var(--font-thai-serif), serif; font-weight
 .note.pink { background: #ffc9dc; } .note.yellow { background: #fff1a8; } .note.mint { background: #c9f0d8; } .note.lilac { background: #e0d2ff; } .note.sky { background: #cfe6ff; }
 .tilt-l { transform: rotate(-1deg); } .tilt-r { transform: rotate(0.9deg); } .tilt-l2 { transform: rotate(-0.7deg); } .tilt-r2 { transform: rotate(1.1deg); }
 .tape { position: absolute; top: -11px; left: 50%; width: 70px; height: 22px; margin-left: -35px; background: rgba(255, 253, 240, 0.66); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12); transform: rotate(-2deg); }
-.note-tag { font-family: var(--font-hand), var(--font-hand-th), cursive; font-size: 21px; font-weight: 600; line-height: 1; color: #bd2d6b; margin-bottom: 8px; }
-html[lang="th"] .note-tag { font-size: 18px; }
+.note-tag { font-family: var(--font-serif), serif; font-style: italic; font-size: 20px; line-height: 1; color: #bd2d6b; margin-bottom: 8px; }
+html[lang="th"] .note-tag { font-family: var(--font-thai-serif), serif; font-style: normal; font-weight: 500; font-size: 15px; }
 .note h3 { font-size: 23px; line-height: 1.15; color: #2a2438; }
 .note-sub { font-size: 13.5px; line-height: 1.5; margin-top: 6px; color: #4b4260; }
 .note-num { font-family: var(--font-serif), serif; font-size: 42px; line-height: 1; color: #2a2438; }
