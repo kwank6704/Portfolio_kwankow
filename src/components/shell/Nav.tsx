@@ -12,24 +12,35 @@ export default function Nav() {
   const [active, setActive] = useState("");
   const [muted, setM] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
+    // Out of the way while reading (scroll down), back as soon as you scroll up or reach the top.
+    let lastY = window.scrollY, raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY, dy = y - lastY;
+      setScrolled(y > 40);
+      if (y < 120 || dy < -6) setHidden(false);
+      else if (dy > 6) setHidden(true);
+      if (Math.abs(dy) > 6) lastY = y;
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     const io = new IntersectionObserver(
       (es) => es.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: "-45% 0px -50% 0px" },
     );
     ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
-    return () => { window.removeEventListener("scroll", onScroll); io.disconnect(); };
+    return () => { window.removeEventListener("scroll", onScroll); if (raf) cancelAnimationFrame(raf); io.disconnect(); };
   }, []);
 
   const light = theme === "light";
   const stroke = { fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
   return (
-    <header className={`nav ${scrolled ? "is-scrolled" : ""}`}>
+    <header className={`nav ${scrolled ? "is-scrolled" : ""} ${hidden ? "is-hidden" : ""}`}>
       <a href="#top" className="logo" aria-label="Back to top">
         <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
           <rect width="32" height="32" rx="9" style={{ fill: "var(--accent)" }} />

@@ -1,5 +1,7 @@
 /* ───────── Nav ───────── */
-.nav { position: fixed; z-index: 50; top: 10px; left: 50%; transform: translateX(-50%); width: min(1180px, calc(100% - 20px)); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px 8px 16px; border-radius: 16px; border: 1px solid transparent; transition: background 0.3s, border-color 0.3s; }
+.nav { position: fixed; z-index: 50; top: 10px; left: 50%; transform: translateX(-50%); width: min(1180px, calc(100% - 20px)); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px 8px 16px; border-radius: 16px; border: 1px solid transparent; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.3s, border-color 0.3s; }
+.nav.is-hidden { transform: translate(-50%, calc(-100% - 20px)); }
+.nav.is-hidden:focus-within { transform: translateX(-50%); }
 .nav.is-scrolled { background: var(--bg); border-color: var(--line); }
 /* over the hero artwork the nav is always light-on-dark */
 .nav:not(.is-scrolled) { --text: #fff8ec; --muted: rgba(255, 248, 236, 0.8); --line: rgba(255, 248, 236, 0.32); --brand: #ffc27a; --on-brand: #2a1b3a; color: var(--text); }
