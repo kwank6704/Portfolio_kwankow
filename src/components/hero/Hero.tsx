@@ -21,6 +21,7 @@ export default function Hero() {
       <div className="hero-pin">
         <div className="stage">
           <RoomFront />
+          <div className="wash" aria-hidden="true" />
           <div className="screen">
             <HeroStage labels={{ bugs: t(h.bugs), n5: t(h.n5), n15: t(h.n15), n30: t(h.n30) }} />
             <div className="chrome fade" aria-hidden="true"><i /><i /><i /><span>kwan.dev · {t(profile.location)}</span></div>

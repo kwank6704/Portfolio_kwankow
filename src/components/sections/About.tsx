@@ -1,20 +1,32 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, useInView } from "motion/react";
 import { Reveal, SectionHead } from "@/components/ui/Reveal";
 import { useI18n } from "@/components/shell/Providers";
 import { ui } from "@/content";
 
 function Counter({ to, decimals = 0, suffix = "" }: { to: number; decimals?: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
   const [v, setV] = useState(0);
+  // count up once, when the number first scrolls into view
   useEffect(() => {
-    if (!inView) return;
-    const c = animate(0, to, { duration: 1.6, ease: "easeOut", onUpdate: setV });
-    return () => c.stop();
-  }, [inView, to]);
+    const el = ref.current;
+    if (!el) return;
+    let raf = 0;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const t0 = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - t0) / 1600);
+        setV(to * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    });
+    io.observe(el);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+  }, [to]);
   return <span ref={ref}>{v.toFixed(decimals)}<small>{suffix}</small></span>;
 }
 

@@ -12,10 +12,15 @@ interface Ctx {
   theme: Theme;
   setLang: (l: Lang) => void;
   setTheme: (t: Theme) => void;
+  fontScale: number;
+  cycleFont: () => void;
   t: (l: L) => string;
   /** Like t(), but turns <em>…</em> into real <em> elements. */
   rich: (l: L) => ReactNode;
 }
+
+/** Text-size steps; the button cycles through them. */
+const FONT_STEPS = [1, 1.15, 1.3, 0.9];
 
 const I18n = createContext<Ctx | null>(null);
 
@@ -28,6 +33,7 @@ export function useI18n() {
 export default function Providers({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
   const [theme, setThemeState] = useState<Theme>("dark");
+  const [fontScale, setFontScale] = useState(1);
 
   useEffect(() => {
     const th = document.documentElement.dataset.theme === "light" ? "light" : "dark";
@@ -40,6 +46,22 @@ export default function Providers({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+
+  // text size: the saved value is also applied by /theme-init.js before first paint
+  useEffect(() => {
+    try {
+      const v = parseFloat(localStorage.getItem("fs") ?? "1");
+      if (FONT_STEPS.includes(v)) setFontScale(v);
+    } catch { /* storage unavailable */ }
+  }, []);
+  const cycleFont = useCallback(() => {
+    setFontScale((cur) => {
+      const next = FONT_STEPS[(FONT_STEPS.indexOf(cur) + 1) % FONT_STEPS.length];
+      document.documentElement.style.setProperty("--fs", String(next));
+      try { localStorage.setItem("fs", String(next)); } catch { /* ignore */ }
+      return next;
+    });
+  }, []);
 
   // Sound may only start after a gesture: the first click, tap or key press turns the soundscape on.
   useEffect(() => {
@@ -69,8 +91,8 @@ export default function Providers({ children }: { children: ReactNode }) {
         p.startsWith("<em>") ? <em key={i}>{p.slice(4, -5)}</em> : <Fragment key={i}>{p}</Fragment>,
       );
     };
-    return { lang, theme, setLang, setTheme, t, rich };
-  }, [lang, theme, setLang, setTheme]);
+    return { lang, theme, setLang, setTheme, fontScale, cycleFont, t, rich };
+  }, [lang, theme, setLang, setTheme, fontScale, cycleFont]);
 
   return <I18n.Provider value={value}>{children}</I18n.Provider>;
 }

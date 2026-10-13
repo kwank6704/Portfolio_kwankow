@@ -57,3 +57,12 @@ div.rise, p.rise { display: block; }
 .email-pop a, .email-pop button { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 10px; font-size: 14.5px; font-weight: 600; text-align: left; color: #f6efe4; }
 .email-pop a:hover, .email-pop button:hover, .email-pop a:focus-visible, .email-pop button:focus-visible { background: rgba(255, 143, 184, 0.16); color: #ffb3cf; }
 @keyframes popin { from { opacity: 0; translate: 0 -6px; } }
+
+/* scroll reveal (only hidden while JS is running; see /theme-init.js) */
+.js .reveal { opacity: 0; transform: translateY(var(--y, 28px)); transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s), transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* text size (Aa button): scales the reading areas; the hero room and the nav stay fixed */
+.sec, .marquee, .foot-text, .sheet-scroll { zoom: var(--fs, 1); }
+.font-btn { font-weight: 700; font-size: 16px; font-family: var(--font-serif), serif; }
+.font-btn small { font-size: 11px; }

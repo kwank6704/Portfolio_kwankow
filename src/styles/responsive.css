@@ -1,7 +1,7 @@
 /* ───────── Responsive ───────── */
 @media (max-width: 1000px) {
   .proj-grid { grid-template-columns: repeat(6, 1fr); }
-  .proj, .proj.feat { grid-column: span 6; }
+  .proj-cell, .proj-cell.feat { grid-column: span 6; }
   .res-grid { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .ach-grid, .doc-grid { grid-template-columns: 1fr 1fr; }
@@ -26,7 +26,7 @@
   body { font-size: 16px; }
   .sec { padding: 84px 18px 20px 28px; }
   .proj-grid { grid-template-columns: 1fr; }
-  .proj, .proj.feat { grid-column: auto; }
+  .proj-cell, .proj-cell.feat { grid-column: auto; }
   .tl-item { grid-template-columns: 1fr; gap: 8px; }
   .timeline { padding-left: 36px; }
   .tl-node { left: -36px; }

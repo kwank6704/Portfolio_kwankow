@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
-import { motion, useScroll, useSpring } from "motion/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Reveal, SectionHead } from "@/components/ui/Reveal";
 import DetailSheet, { type DetailItem } from "@/components/ui/DetailSheet";
 import { useI18n } from "@/components/shell/Providers";
@@ -12,8 +11,22 @@ export default function Experience() {
   const { t, rich } = useI18n();
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<number | null>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
-  const h = useSpring(scrollYProgress, { stiffness: 90, damping: 24 });
+
+  // the line along the timeline fills as you scroll past it (one CSS variable, no animation library)
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect(), vh = window.innerHeight;
+      el.style.setProperty("--p", Math.max(0, Math.min(1, (vh * 0.7 - r.top) / (r.height + vh * 0.1))).toFixed(3));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, []);
 
   const nav = useCallback((d: 1 | -1) => setOpen((i) => (i === null ? i : (i + d + experience.length) % experience.length)), []);
   const close = useCallback(() => setOpen(null), []);
@@ -34,7 +47,7 @@ export default function Experience() {
       <SectionHead n="02" label={t(ui.nav.experience)} title={rich(ui.exp.title)} />
       <div className="timeline" ref={ref}>
         <div className="tl-rail" aria-hidden="true">
-          <motion.div className="tl-fill" style={{ scaleY: h }} />
+          <div className="tl-fill" />
         </div>
         {experience.map((x, i) => (
           <Reveal key={x.id} delay={0.05 * i} className="tl-item">

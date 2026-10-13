@@ -68,7 +68,7 @@ export default function HeroStage({ labels, word = "KWAN" }: { labels: HeroLabel
 
     const build = async () => {
       W = screen.clientWidth; H = screen.clientHeight;
-      if (W < 60 || H < 60) return;
+      if (W < 60 || H < 60 || W * H > 6e6) return; // not laid out yet, or absurdly large
       S = Math.max(0.6, W / 900);
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       for (const c of [pCanvas, bCanvas]) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
@@ -193,7 +193,12 @@ export default function HeroStage({ labels, word = "KWAN" }: { labels: HeroLabel
     window.addEventListener("pointerup", onUp);
 
     let rt: ReturnType<typeof setTimeout>;
-    const ro = new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(() => alive && build(), 200); });
+    let firstResize = true;
+    const ro = new ResizeObserver(() => {
+      if (firstResize) { firstResize = false; return; } // the initial notification; the idle build below covers it
+      clearTimeout(rt);
+      rt = setTimeout(() => alive && build(), 200);
+    });
     ro.observe(screen);
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
@@ -211,7 +216,9 @@ export default function HeroStage({ labels, word = "KWAN" }: { labels: HeroLabel
     mo.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
 
     zoomed = hero.classList.contains("is-zoomed");
-    build();
+    // the pixel scan of the word is the heaviest thing on the page: do it when the browser is idle, not during first paint
+    const run = () => { if (alive) build(); };
+    if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 1200 }); else setTimeout(run, 300);
     startB();
 
     return () => {

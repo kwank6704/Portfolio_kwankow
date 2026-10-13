@@ -19,7 +19,7 @@ const serif = Fraunces({ subsets: ["latin"], style: ["normal", "italic"], axes: 
 const thai = IBM_Plex_Sans_Thai({ subsets: ["thai"], weight: ["400", "500", "600", "700"], variable: "--font-thai", display: "swap", preload: false });
 const thaiSerif = Trirong({ subsets: ["thai"], weight: ["400", "500", "600"], variable: "--font-thai-serif", display: "swap", preload: false });
 
-const hand = Caveat({ subsets: ["latin"], weight: "600", variable: "--font-hand", display: "swap" });
+const hand = Caveat({ subsets: ["latin"], weight: "600", variable: "--font-hand", display: "swap", preload: false });
 const handTh = Mali({ subsets: ["thai"], weight: "500", variable: "--font-hand-th", display: "swap", preload: false });
 
 export const metadata: Metadata = {
