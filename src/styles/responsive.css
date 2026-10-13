@@ -6,10 +6,17 @@
   .ach-grid, .doc-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 900px) {
-  .nav { flex-wrap: wrap; row-gap: 6px; padding: 8px 10px; }
-  .nav nav { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; }
+  html { scroll-padding-top: 112px; }
+  .nav { flex-wrap: wrap; row-gap: 2px; padding: 5px 8px 3px; top: 6px; border-radius: 14px; width: calc(100% - 12px); }
+  .logo { font-size: 19px; gap: 8px; }
+  .logo svg { width: 22px; height: 22px; }
+  .lang-btn { height: 32px; border-radius: 10px; padding: 2px; }
+  .lang-btn b { padding: 0 7px; font-size: 11px; }
+  .icon-btn { width: 32px; height: 32px; border-radius: 10px; }
+  .nav-end { gap: 6px; }
+  .nav nav { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; gap: 0; margin: 0 -4px; }
   .nav nav::-webkit-scrollbar { display: none; }
-  .nav nav a { white-space: nowrap; font-size: 13px; padding: 6px 11px; }
+  .nav nav a { white-space: nowrap; font-size: 12.5px; padding: 4px 10px; }
   .hide-sm { display: none; }
   .skill-svg { display: none; }
   .skill-chips { display: grid; grid-template-columns: 1fr 1fr; }
