@@ -1,0 +1,20 @@
+/* ───────── Landscape (static SVG planes + GPU parallax) ───────── */
+.scene { position: fixed; inset: 0; z-index: -1; overflow: hidden; --hp: 0; background: var(--sky-top); contain: strict; }
+.layer { position: absolute; inset: 0; transform: translate3d(0, calc(var(--hp) * var(--d) * 1vh), 0); will-change: transform; }
+.layer svg, .cloud svg, .bird svg { display: block; width: 100%; height: 100%; }
+.stars { fill: #fff; opacity: var(--stars); }
+.tw { animation: twinkle 5s ease-in-out infinite; }
+.tw1 { animation-delay: -1.7s; animation-duration: 6.5s; }
+.tw2 { animation-delay: -3.4s; animation-duration: 7.5s; }
+@keyframes twinkle { 50% { opacity: 0.3; } }
+.clouds { position: absolute; inset: 0; pointer-events: none; }
+.cloud, .bird { position: absolute; left: 0; will-change: transform; animation: drift linear infinite; }
+.cloud { height: auto; aspect-ratio: 200 / 60; }
+.bird { width: 34px; height: 12px; animation-name: fly; }
+@keyframes drift { from { transform: translate3d(-35vw, 0, 0); } to { transform: translate3d(110vw, 0, 0); } }
+@keyframes fly { from { transform: translate3d(-8vw, 0, 0); } to { transform: translate3d(108vw, -6vh, 0); } }
+.cursor { animation: blink 1.1s steps(2) infinite; }
+.steam { animation: steam 3.2s ease-in-out infinite; }
+@keyframes steam { 0% { translate: 0 5px; opacity: 0; } 40% { opacity: 0.8; } 100% { translate: 0 -7px; opacity: 0; } }
+/* Once the hero has scrolled away, nothing in the scene needs to move. */
+.scene.is-off { visibility: hidden; }

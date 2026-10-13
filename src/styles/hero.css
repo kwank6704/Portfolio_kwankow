@@ -1,0 +1,61 @@
+/* ───────── Hero: the room ───────── */
+.hero { position: relative; z-index: 2; height: 190vh; --e: 0; --sw: max(100vw, 177.78vh); --sh: calc(var(--sw) * 0.5625); }
+.hero-pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.stage {
+  position: absolute; left: 50%; top: 50%;
+  width: var(--sw); height: var(--sh);
+  margin: calc(var(--sh) / -2) 0 0 calc(var(--sw) / -2 + var(--shift, 0px));
+  transform-origin: var(--ox, 50%) var(--oy, 50%);
+  transform: translate3d(calc(var(--dx, 0px) * var(--e)), calc(var(--dy, 0px) * var(--e)), 0) scale(calc(1 + (var(--z, 1.6) - 1) * var(--e)));
+  will-change: transform;
+}
+.room-front { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.room-front * { transition: fill 0.7s ease, stroke 0.7s ease, opacity 0.7s ease; }
+.lamp-on { opacity: var(--lamp-on); }
+.lamp-off { opacity: calc(1 - var(--lamp-on)); }
+
+/* the monitor screen = the website */
+.screen { position: absolute; left: 19%; top: 11.111%; width: 62%; height: 62%; background: var(--bg); color: var(--text); border-radius: 8px; overflow: hidden; container-type: size; cursor: crosshair; touch-action: pan-y; }
+.screen canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.screen > * { pointer-events: none; }
+.chrome { position: absolute; top: 0; left: 0; right: 0; height: max(24px, 4.6cqw); display: flex; align-items: center; gap: 0.9cqw; padding: 0 2cqw; background: var(--bg2); border-bottom: 1px solid var(--line); font-size: max(10px, 1.3cqw); color: var(--muted); }
+.chrome i { width: max(7px, 1cqw); height: max(7px, 1cqw); border-radius: 50%; background: #ff6b5e; }
+.chrome i:nth-child(2) { background: #f5bd4f; }
+.chrome i:nth-child(3) { background: #62c554; margin-right: 1cqw; }
+.screen-text { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 3cqw 2.6cqw; display: grid; gap: 0.5cqw; justify-items: center; text-align: center; }
+.screen-text h1 { font-size: max(20px, 4.6cqw); line-height: 1.08; letter-spacing: -0.02em; }
+html[lang="th"] .screen-text h1 { line-height: 1.25; }
+.roles { font-size: max(9.5px, 1.3cqw); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); }
+.intro { font-size: max(11px, 1.55cqw); line-height: 1.55; color: var(--muted); max-width: 52em; }
+html[lang="th"] .intro { line-height: 1.7; }
+.hud { position: absolute; top: calc(max(24px, 4.6cqw) / 2 - 0.9cqw); right: 2cqw; display: flex; align-items: center; gap: 0.8cqw; font-size: max(9.5px, 1.2cqw); font-weight: 600; color: var(--muted); pointer-events: none; }
+.hud b { color: var(--brand); font-variant-numeric: tabular-nums; }
+.hud-dot { width: max(6px, 0.9cqw); height: max(6px, 0.9cqw); border-radius: 50%; background: #e8506a; }
+.hud-note { padding-left: 0.8cqw; border-left: 1px solid var(--line); color: var(--text); animation: fadein 0.4s; }
+@keyframes fadein { from { opacity: 0; transform: translateX(8px); } }
+/* everything on the screen dissolves while the camera is arriving */
+.screen .fade { opacity: clamp(0, calc((0.88 - var(--e)) * 6), 1); }
+
+/* lamp = theme switch (invisible button over the lamp head) */
+.lamp-btn { position: absolute; left: 80.5%; top: 24%; width: 11%; height: 17%; border-radius: 14px; background: transparent; cursor: pointer; }
+.lamp-btn:hover, .lamp-btn:focus-visible { outline: 2px dashed var(--lamp); outline-offset: 2px; }
+
+/* buttons + hint under the monitor */
+.dock { position: absolute; left: 0; right: 0; bottom: 3.5vh; display: grid; justify-items: center; gap: 12px; padding: 0 16px; opacity: clamp(0, calc(1 - var(--e) * 5), 1); }
+.dock-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.dock .btn { background: #fff8ec; color: #2a1b3a; }
+.dock .btn.ghost { background: rgba(20, 15, 40, 0.35); color: #fff8ec; border-color: rgba(255, 248, 236, 0.5); }
+.dock-hint { font-size: 12.5px; letter-spacing: 0.04em; color: rgba(255, 248, 236, 0.85); text-align: center; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6); }
+.hero.is-zoomed .stage, .hero.is-zoomed .dock { visibility: hidden; }
+
+/* the view outside: glass reflections, window bars and a soft vignette */
+.glass { position: absolute; inset: 0; pointer-events: none; background:
+  linear-gradient(90deg, transparent 6.6%, var(--frame) 6.6% 7.4%, transparent 7.4% 92.6%, var(--frame) 92.6% 93.4%, transparent 93.4%),
+  linear-gradient(115deg, transparent 0 22%, rgba(255, 255, 255, 0.07) 22% 29%, transparent 29% 33%, rgba(255, 255, 255, 0.045) 33% 36%, transparent 36%),
+  radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(8, 6, 24, 0.4) 100%); }
+.scene, .scene * { transition: fill 0.7s ease, stop-color 0.7s ease, background-color 0.7s ease; }
+
+@media (max-width: 640px) {
+  .dock { bottom: 2vh; }
+  .dock-hint { font-size: 11.5px; }
+}
