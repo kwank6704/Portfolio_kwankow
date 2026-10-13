@@ -14,6 +14,7 @@ export const ui = {
     sound: L("Sound effects", "เปิด/ปิดเสียง"),
     theme: L("Switch light / dark", "สลับโหมดสว่าง/มืด"),
     lang: L("Switch language", "เปลี่ยนภาษา"),
+    fontsize: L("Text size", "ขนาดตัวอักษร"),
   },
   hero: {
     eyebrow: L("Portfolio 2026", "พอร์ตโฟลิโอ 2026"),

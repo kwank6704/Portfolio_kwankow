@@ -10,7 +10,7 @@ import EmailMenu from "@/components/shell/EmailMenu";
 const ids = ["about", "experience", "projects", "testing", "research", "skills", "resume", "contact"] as const;
 
 export default function Nav() {
-  const { t, lang, setLang, theme, setTheme } = useI18n();
+  const { t, lang, setLang, theme, setTheme, fontScale, cycleFont } = useI18n();
   const [active, setActive] = useState("");
   const [muted, setM] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -45,7 +45,7 @@ export default function Nav() {
 
   return (
     <header className={`nav ${scrolled ? "is-scrolled" : ""} ${hidden ? "is-hidden" : ""}`}>
-      <a href="#top" className="logo" aria-label="Back to top">
+      <a href="#top" className="logo" aria-label="kwan.kow, back to top">
         <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
           <rect width="32" height="32" rx="9" style={{ fill: "var(--accent)" }} />
           <path d="M10 8v16M10 16l9-8M12.5 14l8 10" style={{ stroke: "var(--bg)" }} strokeWidth="3" strokeLinecap="round" fill="none" />
@@ -58,8 +58,11 @@ export default function Nav() {
         ))}
       </nav>
       <div className="nav-end">
-        <button className="lang-btn" onClick={() => setLang(lang === "en" ? "th" : "en")} aria-label={t(ui.nav.lang)} title={t(ui.nav.lang)}>
+        <button className="lang-btn" onClick={() => setLang(lang === "en" ? "th" : "en")} aria-label={`EN TH, ${t(ui.nav.lang)}`} title={t(ui.nav.lang)}>
           <b className={lang === "en" ? "on" : ""}>EN</b><b className={lang === "th" ? "on" : ""}>TH</b>
+        </button>
+        <button className="icon-btn font-btn" onClick={cycleFont} aria-label={`${t(ui.nav.fontsize)}: ${Math.round(fontScale * 100)}%`} title={`${t(ui.nav.fontsize)}: ${Math.round(fontScale * 100)}%`}>
+          <span aria-hidden="true">A<small>a</small></span>
         </button>
         <button className="icon-btn" onClick={() => setTheme(light ? "dark" : "light")} aria-label={t(ui.nav.theme)} title={t(ui.nav.theme)}>
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" {...stroke}>

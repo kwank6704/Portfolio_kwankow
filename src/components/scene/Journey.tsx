@@ -30,8 +30,7 @@ export default function Journey() {
     });
     const cx = Math.max(9, left - 40);
     const amp = Math.min(8, cx - 5);
-    const hero = document.getElementById("top");
-    const y0 = (hero ? hero.offsetHeight : 700) - 90;
+    const y0 = Math.max(0, raw[0] - 150); // the trail starts just above the first section
     const ys = [y0, ...raw];
     const pts = ys.map((y, i) => ({ x: i === 0 ? cx : cx + (i % 2 ? -amp : amp), y: Math.round(y), f: 0 }));
     const span = pts[pts.length - 1].y - y0;

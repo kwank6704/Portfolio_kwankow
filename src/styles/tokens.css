@@ -24,6 +24,7 @@
   --g1: #9ad9b0; --g2: #9db4ee; --g3: #ff9a8a; --g4: #ffc978; --g5: #c9a9ee; --g6: #8fd6e6;
   --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.6);
   --radius: 16px;
+  --fs: 1; /* text size multiplier, set by the Aa button */
   /* view outside the window */
   --sky-top: #0a0d24; --sky-mid: #1f2358; --sky-low: #5a4586;
   --sun: #f6efe0; --sun-glow: #b9b4ff;

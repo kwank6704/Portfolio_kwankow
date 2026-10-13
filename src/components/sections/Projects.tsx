@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { motion } from "motion/react";
 import { Reveal, SectionHead } from "@/components/ui/Reveal";
 import Cover from "@/components/sections/Covers";
 import DetailSheet, { type DetailItem } from "@/components/ui/DetailSheet";
@@ -14,14 +13,8 @@ function Card({ p, i, onOpen }: { p: Project; i: number; onOpen: () => void }) {
   const u = ui.proj;
 
   return (
-    <motion.article
-      className={`proj ${p.featured ? "feat" : ""}`}
-      style={{ ["--accent" as string]: p.accent }}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay: (i % 2) * 0.08, ease: [0.2, 0.7, 0.2, 1] }}
-    >
+    <Reveal className={`proj-cell ${p.featured ? "feat" : ""}`} delay={(i % 2) * 0.08} y={40}>
+    <article className="proj" style={{ ["--accent" as string]: p.accent }}>
       <button className="proj-art" onClick={onOpen} aria-label={`${t(u.more)}: ${p.title}`}><Cover id={p.id} /></button>
       <div className="proj-body">
         <p className="proj-meta"><span>{t(p.year)}</span>{t(p.kind)}</p>
@@ -35,7 +28,8 @@ function Card({ p, i, onOpen }: { p: Project; i: number; onOpen: () => void }) {
           {p.repo && <a href={p.repo} target="_blank" rel="noreferrer">{t(u.source)} <span aria-hidden>↗</span></a>}
         </div>
       </div>
-    </motion.article>
+    </article>
+    </Reveal>
   );
 }
 

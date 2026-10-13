@@ -83,7 +83,7 @@ export default function Skills() {
         <div className="skill-chips">
           {skillGroups.map((g) => (
             <div key={g.name.en}>
-              <h4><i style={{ background: g.color }} />{t(g.name)}</h4>
+              <h3><i style={{ background: g.color }} />{t(g.name)}</h3>
               <ul className="chips">{g.items.map((i) => <li key={i}>{i}</li>)}</ul>
             </div>
           ))}
