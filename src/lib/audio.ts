@@ -1,12 +1,28 @@
-// Tiny Web Audio synth — no audio files. Context is created lazily on the first user gesture.
+// Tiny Web Audio synth — no audio files. The context is created lazily, on the first user gesture.
+// The ambient soundscape lives in ambient.ts and shares this context and the mute switch.
 let ctx: AudioContext | null = null;
 let muted = false;
+const muteListeners = new Set<() => void>();
+
+try {
+  if (typeof window !== "undefined") muted = localStorage.getItem("muted") === "1";
+} catch { /* storage unavailable */ }
 
 export function setMuted(m: boolean) {
   muted = m;
+  try { localStorage.setItem("muted", m ? "1" : "0"); } catch { /* ignore */ }
+  muteListeners.forEach((fn) => fn());
 }
 export function isMuted() {
   return muted;
+}
+export function onMuteChange(fn: () => void) {
+  muteListeners.add(fn);
+}
+
+/** The shared AudioContext (creating it is only allowed from inside a user gesture). */
+export function audioContext() {
+  return ac();
 }
 
 function ac(): AudioContext | null {

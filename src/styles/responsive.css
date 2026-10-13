@@ -2,7 +2,8 @@
 @media (max-width: 1000px) {
   .proj-grid { grid-template-columns: repeat(6, 1fr); }
   .proj, .proj.feat { grid-column: span 6; }
-  .res-grid, .about-grid { grid-template-columns: 1fr; }
+  .res-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .ach-grid, .doc-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 900px) {
@@ -32,6 +33,7 @@
   .t-row { grid-template-columns: 20px 1fr 52px; }
   .t-via { display: none; }
   .ach-grid, .skill-chips, .doc-grid { grid-template-columns: 1fr; }
+  .board { grid-template-columns: 1fr 1fr; grid-template-areas: "st st" "gp lo" "la la" "so so"; gap: 24px 16px; }
   .lead-list li { grid-template-columns: 1fr; gap: 2px; }
   .lead-list i { text-align: left; }
   .sheet-scroll { padding: 22px 20px 48px; }

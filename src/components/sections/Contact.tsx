@@ -5,6 +5,7 @@ import { Reveal, SectionHead } from "@/components/ui/Reveal";
 import { useI18n } from "@/components/shell/Providers";
 import { achievements, leadership, profile, ui } from "@/content";
 import { pass } from "@/lib/audio";
+import EmailMenu from "@/components/shell/EmailMenu";
 import Resume from "@/components/sections/Resume";
 import Horizon from "@/components/scene/Horizon";
 
@@ -51,7 +52,7 @@ export default function Contact() {
           <h2 className="mega">{rich(c.title)}</h2>
           <p className="lead">{t(c.lead)}</p>
           <div className="contact-row">
-            <a className="btn big" href={`mailto:${profile.email}`}>{profile.email}</a>
+            <EmailMenu big center label={profile.email} />
             <button className="btn ghost big" onClick={copy}>{copied ? t(c.copied) : t(c.copy)}</button>
           </div>
           <div className="contact-links">

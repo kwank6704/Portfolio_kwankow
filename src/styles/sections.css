@@ -20,14 +20,27 @@ html[lang="th"] .doc-t { font-family: var(--font-thai-serif), serif; font-weight
 .doc-go { position: absolute; top: 22px; right: 22px; font-size: 18px; opacity: 0.6; transition: transform 0.25s; }
 .doc:hover .doc-go { transform: translate(3px, -3px); opacity: 1; }
 
-/* ───────── About ───────── */
-.about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: start; }
-.about-grid .muted { margin-top: 18px; }
-.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.stat { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
-.stat b { display: block; font-size: 44px; line-height: 1; }
-.stat small { font-size: 14px; color: var(--muted); font-family: var(--font-display); }
-.stat span { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); display: block; margin-top: 10px; font-weight: 600; }
+/* ───────── About: notes pinned to a board ───────── */
+.about-grid { display: grid; grid-template-columns: 0.8fr 1.4fr; gap: 56px; align-items: start; }
+.about-intro .big { font-size: clamp(21px, 2.1vw, 27px); line-height: 1.4; max-width: 24em; }
+.board { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-areas: "st st st st gp gp" "lo lo lo la la la" "so so so so so so"; gap: 28px 24px; padding: 8px 4px; }
+.n-st { grid-area: st; } .n-gp { grid-area: gp; } .n-lo { grid-area: lo; } .n-la { grid-area: la; } .n-so { grid-area: so; }
+.note { position: relative; padding: 30px 22px 22px; border-radius: 3px 3px 10px 3px; color: #2a2438; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 14px 22px -12px rgba(20, 10, 40, 0.45); transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.3s; }
+.note:hover { transform: rotate(0deg) translateY(-5px) scale(1.02); box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 24px 30px -14px rgba(20, 10, 40, 0.55); z-index: 2; }
+.note.pink { background: #ffc9dc; } .note.yellow { background: #fff1a8; } .note.mint { background: #c9f0d8; } .note.lilac { background: #e0d2ff; } .note.sky { background: #cfe6ff; }
+.tilt-l { transform: rotate(-1deg); } .tilt-r { transform: rotate(0.9deg); } .tilt-l2 { transform: rotate(-0.7deg); } .tilt-r2 { transform: rotate(1.1deg); }
+.tape { position: absolute; top: -11px; left: 50%; width: 70px; height: 22px; margin-left: -35px; background: rgba(255, 253, 240, 0.66); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12); transform: rotate(-2deg); }
+.note-tag { font-family: var(--font-hand), var(--font-hand-th), cursive; font-size: 21px; font-weight: 600; line-height: 1; color: #bd2d6b; margin-bottom: 8px; }
+html[lang="th"] .note-tag { font-size: 18px; }
+.note h3 { font-size: 23px; line-height: 1.15; color: #2a2438; }
+.note-sub { font-size: 13.5px; line-height: 1.5; margin-top: 6px; color: #4b4260; }
+.note-num { font-family: var(--font-serif), serif; font-size: 42px; line-height: 1; color: #2a2438; }
+.note-num small { font-family: var(--font-display); font-size: 13px; color: #4b4260; }
+.note-list { display: grid; gap: 3px; font-weight: 600; font-size: 14.5px; }
+.note-list li::before { content: "→ "; color: #bd2d6b; }
+.note-pair { display: flex; gap: 40px; flex-wrap: wrap; }
+.note-pair p { display: grid; gap: 2px; }
+.note-pair span { font-size: 13px; font-weight: 600; color: #4b4260; }
 
 /* ───────── Timeline ───────── */
 .timeline { position: relative; display: grid; gap: 28px; padding-left: 44px; }
@@ -100,9 +113,9 @@ html[lang="th"] .doc-t { font-family: var(--font-thai-serif), serif; font-weight
 .term-bar i:nth-child(2) { background: #f5bd4f; }
 .term-bar i:nth-child(3) { background: #62c554; margin-right: 8px; }
 .term-bar span { flex: 1; }
-.term-bar .btn { background: #ffb066; color: #1a1126; }
+.term-bar .btn { background: #ff8fb8; color: #1a1126; }
 .term-progress { height: 2px; background: rgba(255, 255, 255, 0.06); }
-.term-progress div { height: 100%; background: #ffb066; transition: width 0.4s; }
+.term-progress div { height: 100%; background: #ff8fb8; transition: width 0.4s; }
 .term-body { padding: 22px 24px 26px; font-size: 13.5px; display: grid; gap: 4px; overflow-x: auto; }
 .term-body .dim { color: #6c6a8c; }
 .t-row { display: grid; grid-template-columns: 22px minmax(0, 1.4fr) minmax(0, 1fr) 60px; gap: 6px 12px; align-items: baseline; padding: 6px 0 6px 18px; color: #6c6a8c; transition: color 0.3s; }
@@ -121,7 +134,7 @@ html[lang="th"] .doc-t { font-family: var(--font-thai-serif), serif; font-weight
 .t-sum { margin-top: 14px; padding-top: 14px; border-top: 1px dashed rgba(255, 255, 255, 0.14); color: #a6a3bb; opacity: 0; transition: opacity 0.4s; }
 .t-sum.show { opacity: 1; }
 .t-sum .ok { color: #9ad9b0; } .t-sum .bad { color: #ff9a8a; }
-.cursor-blink { display: inline-block; width: 8px; height: 15px; background: #ffb066; margin-left: 8px; vertical-align: -2px; animation: blink 1s steps(2) 6; }
+.cursor-blink { display: inline-block; width: 8px; height: 15px; background: #ff8fb8; margin-left: 8px; vertical-align: -2px; animation: blink 1s steps(2) 6; }
 @keyframes blink { 50% { opacity: 0; } }
 
 /* ───────── Research ───────── */
@@ -179,7 +192,7 @@ html[lang="th"] .doc-t { font-family: var(--font-thai-serif), serif; font-weight
 .lead-list i { font-style: normal; font-size: 13px; color: var(--muted); text-align: right; }
 
 /* ───────── Contact ───────── */
-.contact { padding-top: 160px; padding-bottom: 120px; text-align: center; max-width: 900px; }
+.contact { z-index: 3; padding-top: 160px; padding-bottom: 120px; text-align: center; max-width: 900px; }
 .contact .eyebrow { justify-content: center; }
 .contact .lead { margin-inline: auto; }
 .contact-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }

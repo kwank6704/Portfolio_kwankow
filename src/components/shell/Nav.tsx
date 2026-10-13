@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { click, isMuted, setMuted } from "@/lib/audio";
-import { profile, ui } from "@/content";
+import { startAmbient } from "@/lib/ambient";
+import { ui } from "@/content";
 import { useI18n } from "@/components/shell/Providers";
+import EmailMenu from "@/components/shell/EmailMenu";
 
 const ids = ["about", "experience", "projects", "testing", "research", "skills", "resume", "contact"] as const;
 
@@ -13,6 +15,8 @@ export default function Nav() {
   const [muted, setM] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
+
+  useEffect(() => { setM(isMuted()); }, []);
 
   useEffect(() => {
     // Out of the way while reading (scroll down), back as soon as you scroll up or reach the top.
@@ -67,14 +71,14 @@ export default function Nav() {
           aria-pressed={muted}
           aria-label={t(ui.nav.sound)}
           title={t(ui.nav.sound)}
-          onClick={() => { const m = !isMuted(); setMuted(m); setM(m); if (!m) click(); }}
+          onClick={() => { const m = !isMuted(); setMuted(m); setM(m); if (!m) { startAmbient(); click(); } }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" {...stroke}>
             <path d="M11 5 6 9H3v6h3l5 4z" />
             {muted ? <path d="m22 9-6 6m0-6 6 6" /> : <><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M18.5 5.5a9 9 0 0 1 0 13" /></>}
           </svg>
         </button>
-        <a className="btn btn-sm hide-sm" href={`mailto:${profile.email}`}>{t(ui.nav.hire)}</a>
+        <div className="hide-sm"><EmailMenu label={t(ui.nav.hire)} /></div>
       </div>
     </header>
   );

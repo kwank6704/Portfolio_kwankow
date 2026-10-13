@@ -48,3 +48,12 @@ main { position: relative; }
 .rise { display: inline-block; opacity: 0; transform: translate3d(0, 22px, 0); animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; animation-delay: calc(var(--i, 0) * 0.13s + 0.1s); }
 div.rise, p.rise { display: block; }
 @keyframes rise { to { opacity: 1; transform: none; } }
+
+/* email menu */
+.email-menu { position: relative; display: inline-block; }
+.email-pop { position: absolute; right: 0; top: calc(100% + 10px); z-index: 70; min-width: 240px; display: grid; gap: 2px; padding: 8px; text-align: left; background: #141831; color: #f6efe4; border: 1px solid rgba(246, 239, 228, 0.18); border-radius: 14px; box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.6); animation: popin 0.18s ease-out; }
+.email-menu.center .email-pop { right: auto; left: 50%; transform: translateX(-50%); }
+.email-addr { font-size: 12.5px; color: rgba(246, 239, 228, 0.7); padding: 6px 12px 8px; overflow-wrap: anywhere; }
+.email-pop a, .email-pop button { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 10px; font-size: 14.5px; font-weight: 600; text-align: left; color: #f6efe4; }
+.email-pop a:hover, .email-pop button:hover, .email-pop a:focus-visible, .email-pop button:focus-visible { background: rgba(255, 143, 184, 0.16); color: #ffb3cf; }
+@keyframes popin { from { opacity: 0; translate: 0 -6px; } }
